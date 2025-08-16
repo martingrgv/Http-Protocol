@@ -1,0 +1,10 @@
+[SERVER] Listening on 127.0.0.1:40569
+[SERVER] Client connected
+[SERVER] Recieved: POST /coffee HTTP/1.1
+[SERVER] Recieved: Host: localhost:40569
+[SERVER] Recieved: User-Agent: curl/8.15.0
+[SERVER] Recieved: Accept: */*
+[SERVER] Recieved: Content-Type: application/json
+[SERVER] Recieved: Content-Length: 22
+[SERVER] Recieved: 
+[SERVER] Recieved: {"flavor":"dark mode"}
