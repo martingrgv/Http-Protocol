@@ -1,0 +1,27 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "HttpStreams",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "dotnet: build",
+            "program": "${workspaceFolder}/HttpStreams/bin/Debug/net8.0/HttpStreams.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/HttpStreams",
+            "console": "integratedTerminal",
+            "stopAtEntry": false
+        },
+        {
+            "name": "Tcp",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "dotnet: build",
+            "program": "${workspaceFolder}/Tcp/bin/Debug/net8.0/Tcp.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/Tcp",
+            "console": "integratedTerminal",
+            "stopAtEntry": false
+        }
+    ]
+}
