@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpStreams", "HttpStreams\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tcp", "Tcp\Tcp.csproj", "{3D5773E5-269C-4AD4-A026-5D85BD90F20D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{1FE85D2A-114E-48A9-BE3C-DC2FF1627277}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TcpTests", "tests\TcpTests\TcpTests.csproj", "{88191FE3-8241-4780-8162-9F3835800B45}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +28,12 @@ Global
 		{3D5773E5-269C-4AD4-A026-5D85BD90F20D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D5773E5-269C-4AD4-A026-5D85BD90F20D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D5773E5-269C-4AD4-A026-5D85BD90F20D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88191FE3-8241-4780-8162-9F3835800B45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88191FE3-8241-4780-8162-9F3835800B45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88191FE3-8241-4780-8162-9F3835800B45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88191FE3-8241-4780-8162-9F3835800B45}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{88191FE3-8241-4780-8162-9F3835800B45} = {1FE85D2A-114E-48A9-BE3C-DC2FF1627277}
 	EndGlobalSection
 EndGlobal
