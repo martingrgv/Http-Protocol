@@ -17,7 +17,7 @@ public class ReaderTests
     [Test]
     public async Task ReaderReturnsFullMessage_WhenHttpGetMessage()
     {
-        string httpRequest = "GET /coffee HTTP/1.1\r\nHost: localhost:40569\r\nUser-Agent: curl/8.15.0\r\nAccept: */*\r\n";
+        string httpRequest = "GET /coffee HTTP/1.1\r\nHost: localhost:40569\r\nUser-Agent: curl/8.15.0\r\nAccept: */*\r\n\r\n";
         var stream = new MemoryStream(Encoding.UTF8.GetBytes(httpRequest));
 
         var result = await _reader.ReadAsync(stream);
@@ -25,17 +25,18 @@ public class ReaderTests
 
         Console.WriteLine(string.Join("\n", lines));
 
-        Assert.That(lines, Has.Count.EqualTo(4));
+        Assert.That(lines, Has.Count.EqualTo(5));
         Assert.That(lines[0], Is.EqualTo("GET /coffee HTTP/1.1\r"));
         Assert.That(lines[1], Is.EqualTo("Host: localhost:40569\r"));
         Assert.That(lines[2], Is.EqualTo("User-Agent: curl/8.15.0\r"));
         Assert.That(lines[3], Is.EqualTo("Accept: */*\r"));
+        Assert.That(lines[4], Is.EqualTo("\r\n"));
     }
 
     [Test]
     public async Task ReaderReturnsFullMessageWithBody_WhenHttpPostMessage()
     {
-        string httpRequest = "POST /coffee HTTP/1.1\r\nHost: localhost:40569\r\nUser-Agent: curl/8.15.0\r\nAccept: */*\r\nContent-Type: application/json\r\nContent-Length: 22\r\n\r\n{\"flavor\":\"dark mode\"}\r\n";
+        string httpRequest = "POST /coffee HTTP/1.1\r\nHost: localhost:40569\r\nUser-Agent: curl/8.15.0\r\nAccept: */*\r\nContent-Type: application/json\r\nContent-Length: 22\r\n\r\n{\"flavor\":\"dark mode\"}\r";
         var stream = new MemoryStream(Encoding.UTF8.GetBytes(httpRequest));
 
         var result = await _reader.ReadAsync(stream);

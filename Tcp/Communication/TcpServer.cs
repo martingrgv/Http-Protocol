@@ -36,13 +36,20 @@ public class TcpServer : IDisposable
     {
         while (!_cts.Token.IsCancellationRequested)
         {
-            _tcpClient = await _tcpListener.AcceptTcpClientAsync();
-            Console.WriteLine("[SERVER] Client connected");
+            try
+            {
+                _tcpClient = await _tcpListener.AcceptTcpClientAsync();
+                Console.WriteLine("[SERVER] Client connected");
 
-            NetworkStream stream = _tcpClient.GetStream();
+                NetworkStream stream = _tcpClient.GetStream();
 
-            var messages = await reader.ReadAsync(stream);
-            await handler.Handle(messages);
+                var messages = await reader.ReadAsync(stream);
+                await handler.Handle(messages);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[SERVER] Error: {ex.Message}");
+            }
         }
     }
 

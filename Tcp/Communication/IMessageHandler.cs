@@ -2,5 +2,5 @@ namespace Tcp.Communication;
 
 public interface IMessageHandler
 {
-    Task Handle(IEnumerable<string> messages);
+    Task Handle(IEnumerable<string> lines);
 }
