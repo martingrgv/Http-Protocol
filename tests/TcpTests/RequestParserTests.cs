@@ -1,4 +1,4 @@
-using NUnit.Framework.Constraints;
+using System.Text;
 using Tcp.Request;
 
 namespace TcpTests;
@@ -6,6 +6,21 @@ namespace TcpTests;
 [TestFixture]
 public class RequestParserTests
 {
+    [Test]
+    public async Task ReturnsRequest_WhenFullStream()
+    {
+        string httpRequest = "GET /coffee HTTP/1.1\r\nHost: localhost:40569\r\nUser-Agent: curl/8.15.0\r\nAccept: */*\r\n\r\n";
+        var stream = new MemoryStream(Encoding.UTF8.GetBytes(httpRequest));
+
+        var request = await RequestParser.RequestFromStreamAsync(stream, CancellationToken.None);
+
+        Assert.That(request, Is.Not.Null);
+        Assert.That(request.RequestLine, Is.Not.Null);
+        Assert.That(request.RequestLine.Method, Is.EqualTo("GET"));
+        Assert.That(request.RequestLine.RequestTarget, Is.EqualTo("/coffee"));
+        Assert.That(request.RequestLine.HttpVersion, Is.EqualTo("1.1"));
+    }
+
     [Test]
     public void ReturnsGetRequest_WhenValidHttpGetLines()
     {
@@ -24,7 +39,7 @@ public class RequestParserTests
         Assert.That(request.RequestLine, Is.Not.Null);
         Assert.That(request.RequestLine.Method, Is.EqualTo("GET"));
         Assert.That(request.RequestLine.RequestTarget, Is.EqualTo("/coffee"));
-        Assert.That(request.RequestLine.HttpVersion, Is.EqualTo("HTTP/1.1"));
+        Assert.That(request.RequestLine.HttpVersion, Is.EqualTo("1.1"));
     }
 
     [Test]
@@ -48,7 +63,7 @@ public class RequestParserTests
         Assert.That(request.RequestLine, Is.Not.Null);
         Assert.That(request.RequestLine.Method, Is.EqualTo("POST"));
         Assert.That(request.RequestLine.RequestTarget, Is.EqualTo("/coffee"));
-        Assert.That(request.RequestLine.HttpVersion, Is.EqualTo("HTTP/1.1"));
+        Assert.That(request.RequestLine.HttpVersion, Is.EqualTo("1.1"));
     }
 
     [Test]

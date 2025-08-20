@@ -1,9 +1,10 @@
 using System.Net;
 using System.Net.Sockets;
+using Tcp.Request;
 
 namespace Tcp.Communication;
 
-public class TcpServer : IDisposable
+public class TcpServer
 {
     private const int PortMaxSize = 5;
 
@@ -32,7 +33,7 @@ public class TcpServer : IDisposable
         return new TcpServer(listener);
     }
 
-    public async Task ReceiveAsync(IReader reader, IMessageHandler handler)
+    public async Task ReceiveRequestAsync(IRequestHandler handler)
     {
         while (!_cts.Token.IsCancellationRequested)
         {
@@ -42,7 +43,26 @@ public class TcpServer : IDisposable
                 Console.WriteLine("[SERVER] Client connected");
 
                 NetworkStream stream = _tcpClient.GetStream();
+                var request = await RequestParser.RequestFromStreamAsync(stream, _cts.Token);
+                await handler.Handle(request);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[SERVER] Error: {ex.Message}");
+            }
+        }
+    }
 
+    public async Task ReceiveMessageAsync(IReader reader, IMessageHandler handler)
+    {
+        while (!_cts.Token.IsCancellationRequested)
+        {
+            try
+            {
+                _tcpClient = await _tcpListener.AcceptTcpClientAsync();
+                Console.WriteLine("[SERVER] Client connected");
+
+                NetworkStream stream = _tcpClient.GetStream();
                 var messages = await reader.ReadAsync(stream);
                 await handler.Handle(messages);
             }

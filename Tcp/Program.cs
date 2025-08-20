@@ -1,7 +1,8 @@
 ﻿using Tcp.Communication;
+using Tcp.Request;
 
-var reader = new Reader();
-var messageHandler = new MessageHandler();
+var handler = new RequestHandler();
 
 using var tcpServer = TcpServer.OpenConnection("127.0.0.1", 40569);
-await tcpServer.ReceiveAsync(reader, messageHandler);
+await tcpServer.ReceiveRequestAsync(handler);
+
