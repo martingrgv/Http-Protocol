@@ -4,7 +4,7 @@ using Tcp.Request;
 
 namespace Tcp.Communication;
 
-public class TcpServer
+public class TcpServer : IDisposable
 {
     private const int PortMaxSize = 5;
 
